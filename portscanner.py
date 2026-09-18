@@ -3,8 +3,6 @@
 import socket
 import termcolor
 
-# just a comment
-
 def scan(target, ports):
 	print('\n' + ' Starting Scan For ' + str(target))
 	for port in range(1,ports):
