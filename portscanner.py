@@ -5,19 +5,22 @@ import termcolor
 
 
 def scan(target, ports):
-	print('\n' + ' Starting Scan For ' + str(target))
-	for port in range(1,ports):
-		scan_port(target,port)
+    print("\n" + " Starting Scan For " + str(target))
+    for port in range(1, ports + 1):
+        scan_port(target, port)
 
 
 def scan_port(ipaddress, port):
-	try:
-		sock = socket.socket()
-		sock.connect((ipaddress, port))
-		print("[+] Port Opened " + str(port))
-		sock.close()
-	except:
-		pass
+    sock = socket.socket()
+    sock.settimeout(1)
+
+    try:
+        sock.connect((ipaddress, port))
+        print("[+] Port Opened " + str(port))
+    except (socket.timeout, ConnectionRefusedError, OSError):
+        pass
+    finally:
+        sock.close()
 
 
 targets = input("[*] Enter Targets To Scan(split them by ,): ")
